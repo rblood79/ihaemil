@@ -13,7 +13,7 @@ export default new Vuex.Store({
     isarticle: '',
     isEvent: '' */
     appName: 'Haemilsoft',
-    appBuilder: 'RUNA SERIES <a title="RUNA Report" href="http://ihaemil.co.kr:8080" target="_blank">Report</a> / <a title="RUNA Builder">Builder</a> / <a title="RUNA Studio">Studio</a>',
+    appBuilder: 'RUNA SERIES <a title="RUNA Report" href="http://runa-r.ihaemil.co.kr" target="_blank">Report</a> / <a title="RUNA Builder">Builder</a> / <a title="RUNA Studio">Studio</a>',
     appBuilderM: 'RUNA SERIES <a title="RUNA Report">Report</a> / <a title="RUNA Builder">Builder</a> / <a title="RUNA Studio">Studio</a>',
     scrollY: 0,
     deltaY: 0,

@@ -4,6 +4,7 @@
     :options="swiperOption"
     v-bind:class="[$route.name]"
     v-if="$store.state.isMobile"
+    ref="visualm"
   >
     <swiper-slide class="block block0">
       <transition name="slide-bottom">
@@ -62,17 +63,19 @@
 </template>
 
 <script>
-import Velocity from 'velocity-animate'
-import store from '../store'
-import router from '../router'
+import Velocity from "velocity-animate";
+import store from "../store";
+import router from "../router";
 
 export default {
-  data () {
+  data() {
     return {
-      transitionName: 'slide-top',
+      transitionName: "slide-top",
       items: [],
       swiperOption: {
-        direction: 'vertical'
+        //speed: 0,
+        direction: "vertical",
+        hashNavigation: true
       }
 
       /* swiperOptionh: {
@@ -95,83 +98,92 @@ export default {
           clickable: true
         }
       } */
-    }
+    };
   },
-  created () {
+  created() {
     // 뷰가 생성되고 데이터가 이미 감시 되고 있을 때 데이터를 가져온다.
     // this.fetchData()
   },
-  destroyed () {},
+  destroyed() {},
   watch: {
     // 라우트가 변경되면 메소드를 다시 호출됩니다.
     // '$route': 'fetchData'
   },
-  mounted () {
-    let idx = null
+  mounted() {
+    let idx = null;
+    let ss = null;
     // console.log('aaaapp created',this.$store.state.isMobile, this.$refs["visualm"])
     if (this.$store.state.items <= 0 && !this.$store.state.isMobile) {
-      store.commit('items', {
-        array: this.fn_array(this.$refs['visual'])
-      })
+      store.commit("items", {
+        array: this.fn_array(this.$refs["visual"])
+      });
     }
 
     if (this.$store.state.isMobile) {
+      ss = this.$refs.visualm.$el.children[0];
     }
 
     router.beforeEach((to, from, next) => {
-      idx = to.meta.id
-      if (this.$store.state.isMobile || to.meta.layout == 'detail') {
-        next()
-        return
+      //console.log(to.meta.layout, " / ", to.path.split("/").length);
+      idx = to.meta.id;
+      if (this.$store.state.isMobile || to.meta.layout == "detail") {
+        next();
+        return;
       }
 
-      if (to.path.split('/').length > 2) {
-        this.transitionName = to.meta.transition
-        next()
+      if (to.path.split("/").length > 2) {
+        this.transitionName = to.meta.transition;
+        next();
       } else {
         this.fn_sub(
           next,
           this.$store.state.itemsValue[idx],
           this.$store.state.items,
           idx
-        )
+        );
       }
-    })
+    });
 
     router.afterEach((to, from) => {
-      store.commit('isMenu', { active: false })
-      // console.log("router after", this.$refs["visualm"]);
+      store.commit("isMenu", { active: false });
       // window.scrollTo(0, 0)
-    })
+      if (this.$store.state.isMobile && to.meta.layout != "detail") {
+        if (to.path.split("/").length == from.path.split("/").length) {
+          setTimeout(function() {
+            ss.removeAttribute("style");
+          }, 0);
+        };
+      };
+    });
   },
   computed: {},
-  beforeDestroy () {},
+  beforeDestroy() {},
   methods: {
-    fetchData () {
+    fetchData() {
       // 데이터 가져오기 위한 유틸리티/API 래퍼로 변경합니다.
     },
-    fn_random () {
-      return Math.random(1000)
+    fn_random() {
+      return Math.random(1000);
     },
-    fn_array (elements) {
-      let arr = []
+    fn_array(elements) {
+      let arr = [];
       for (var i = 0; i < elements.childNodes.length - 1; i++) {
-        arr[i] = elements.childNodes[i]
+        arr[i] = elements.childNodes[i];
       }
-      return arr
+      return arr;
     },
-    fn_sub: function (next, itemsValue, items, idx) {
-      const vLangth = items.length - 1
+    fn_sub: function(next, itemsValue, items, idx) {
+      const vLangth = items.length - 1;
       if (idx > 0) {
-        items.forEach(function (element, index) {
+        items.forEach(function(element, index) {
           if (element.children.length > 0) {
-            element.children[0].classList.add('hide')
+            element.children[0].classList.add("hide");
           }
           Velocity(
             element,
             {
-              'max-width': itemsValue.width[index],
-              'max-height': itemsValue.height[index],
+              "max-width": itemsValue.width[index],
+              "max-height": itemsValue.height[index],
               left: itemsValue.x[index],
               top: itemsValue.y[index]
               // 'background-color': itemsValue.background[index]
@@ -180,42 +192,45 @@ export default {
               delay: itemsValue.delay[index],
               duration: 360,
               easing: [0.25, 0.8, 0.5, 1],
-              complete: function () {
+              complete: function() {
                 if (element.children.length > 0) {
-                  element.children[0].classList.remove('hide')
+                  element.children[0].classList.remove("hide");
                 }
                 if (index === vLangth || idx === 0) {
-                  next()
+                  next();
                 }
               }
             }
-          )
-        })
+          );
+        });
       } else {
-        items[0].children[0].classList.add('hide')
+        items[0].children[0].classList.add("hide");
         Velocity(
           items[0],
           {
-            'max-width': itemsValue.width[0],
-            'max-height': itemsValue.height[0]
+            "max-width": itemsValue.width[0],
+            "max-height": itemsValue.height[0]
           },
           {
             duration: 360,
             easing: [0.25, 0.8, 0.5, 1],
-            complete: function () {
-              items[0].children[0].classList.remove('hide')
-              items[0].removeAttribute('style')
-              next()
+            complete: function() {
+              items[0].children[0].classList.remove("hide");
+              items[0].removeAttribute("style");
+              next();
             }
           }
-        )
+        );
       }
     }
   }
-}
+};
 </script>
 <style lang="scss">
 @media (max-width: 750px) {
+  .move {
+    transform: translate3d(0px, 0px, 0px) !important;
+  }
   main.v-content {
     .v-content__wrap {
       height: 100%;
@@ -228,16 +243,16 @@ export default {
         .swiper-wrapper {
           flex-direction: column;
           .block0 {
-            background-color:#0277bd;
+            background-color: #0277bd;
           }
           .block1 {
-            background-color:#363636;
+            background-color: #363636;
           }
           .block2 {
-            background-color:#2f5aa8;
+            background-color: #2f5aa8;
           }
           .block3 {
-            background-color:#1e9cd9;
+            background-color: #1e9cd9;
           }
           .block {
             /*background-color: #03a9f4;
@@ -270,7 +285,7 @@ export default {
                 .caption {
                   font-size: 14px !important;
                   text-decoration: underline;
-                      text-underline-position: under;
+                  text-underline-position: under;
                   display: flex;
                   align-items: flex-start;
                   padding: 0 24px;

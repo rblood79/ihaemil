@@ -20,7 +20,7 @@
       </v-toolbar>
     </header>
 
-    <v-content>
+    <v-content ref="xxx">
       <keep-alive>
         <transition name="slide-top" v-if="$store.state.isMobile">
           <component :is="layout"></component>
@@ -71,12 +71,12 @@
 </template>
 
 <script>
-import store from './store'
-import router from './router'
-import Guide from '@/components/Guide.vue'
-import MenuBar from '@/components/Menus.vue'
+import store from "./store";
+import router from "./router";
+import Guide from "@/components/Guide.vue";
+import MenuBar from "@/components/Menus.vue";
 
-const default_layout = 'default'
+const default_layout = "default";
 
 export default {
   components: {
@@ -87,23 +87,23 @@ export default {
     /* swiper,
     swiperSlide */
   },
-  data () {
+  data() {
     return {
       isTest: true,
       isMobile: false,
-      isDetail: 'default',
+      isDetail: "default",
       sidebar: false,
       position: false,
       deltaY: 0,
-      transitionName: 'zoom-in',
+      transitionName: "zoom-in",
       scrollPosition: 0,
       startScrollPosition: 0,
       ticking: false,
       isMenu: this.$store.state.isMenu,
-      swipeDirection: 'None'
-    }
+      swipeDirection: "None"
+    };
   },
-  beforeDestroy () {
+  beforeDestroy() {
     /* if (typeof window !== 'undefined') {
       window.removeEventListener('pointerdown', this.fn_pointer, {
         passive: true
@@ -117,29 +117,29 @@ export default {
     } */
   },
   computed: {
-    layout () {
+    layout() {
       // console.log("app computed:", this.$route.meta.layout);
-      if (this.$route.meta.layout === 'default') {
-        this.isDetail = 'default'
+      if (this.$route.meta.layout === "default") {
+        this.isDetail = "default";
       } else {
-        this.isDetail = 'detail'
+        this.isDetail = "detail";
       }
-      return (this.$route.meta.layout || default_layout) + '_layout'
+      return (this.$route.meta.layout || default_layout) + "_layout";
     }
   },
-  created () {
-    var filter = 'win16|win32|win64|mac|macintel'
-    var _isMobile = false
+  created() {
+    var filter = "win16|win32|win64|mac|macintel";
+    var _isMobile = false;
     if (navigator.platform) {
       if (filter.indexOf(navigator.platform.toLowerCase()) < 0) {
-        _isMobile = true
+        _isMobile = true;
       }
     }
     if (_isMobile || window.innerWidth < 1125) {
-      store.commit('isMobile', { active: true })
+      store.commit("isMobile", { active: true });
     }
-    store.commit('isTest', { active: this.isTest })
-    this.appName = this.$store.state.appName
+    store.commit("isTest", { active: this.isTest });
+    this.appName = this.$store.state.appName;
   },
   /* created() {console.log(navigator.platform)
     this.appName = this.$store.state.appName;
@@ -149,25 +149,32 @@ export default {
   watch: {
     // 라우트가 변경되면 메소드를 다시 호출합니다
     // '$route': 'fetchData'
+    $route() {
+      let xz = this.$refs.xxx.$el.children[0];
+      setTimeout(function() {
+        xz.scrollTop = 0;
+      }, 0);
+    }
   },
-  mounted () {
+  mounted() {
+    let xx = this.$refs.xxx.$el.children[0];
     // console.log('app mounted')
     router.beforeEach((to, from, next) => {
-      // console.log(to.meta.title, to.meta.layout)
-      this.isDetail = to.meta.layout
+      //console.log(to.meta.title, to.meta.layout)
+      this.isDetail = to.meta.layout;
       // console.log('app mounted', to.meta.layout)
       if (to.meta.index > from.meta.index) {
-        this.position = true
+        this.position = true;
       } else {
-        this.position = false
+        this.position = false;
       }
       if (to.meta.transition) {
-        this.transitionName = 'zoom-in'
+        this.transitionName = "zoom-in";
       } else {
-        this.transitionName = 'zoom-out'
+        this.transitionName = "zoom-out";
       }
-      next()
-    })
+      next();
+    });
     // window.addEventListener('pointerdown', this.fn_pointerDown, { passive: true })
     // window.addEventListener('pointerup', this.fn_pointerUp, { passive: true })
     // window.addEventListener('scroll', this.fn_scroll, { passive: true })
@@ -176,63 +183,63 @@ export default {
     // this.fn_resize()
   },
   methods: {
-    swipe (direction) {
-      this.swipeDirection = direction
-      if (direction === 'Down') {
-        this.bgColor = '#363636 !important'
+    swipe(direction) {
+      this.swipeDirection = direction;
+      if (direction === "Down") {
+        this.bgColor = "#363636 !important";
       } else {
-        this.bgColor = '#fff !important'
+        this.bgColor = "#fff !important";
       }
     },
-    fetchData () {
-      console.log('fetchData')
+    fetchData() {
+      //console.log("fetchData");
     },
-    fn_scroll () {
+    fn_scroll() {
       if (this.startScrollPosition > window.scrollY || window.scrollY <= 1) {
-        this.deltaY = 0
+        this.deltaY = 0;
       } else {
-        this.deltaY = 1
+        this.deltaY = 1;
       }
-      store.commit('scrollY', { num: window.scrollY })
-      this.startScrollPosition = window.scrollY
+      store.commit("scrollY", { num: window.scrollY });
+      this.startScrollPosition = window.scrollY;
     },
-    fn_pointerUp (event) {
-      console.log('fn_pointerUp')
-      this.isPointer = 'up'
+    fn_pointerUp(event) {
+      console.log("fn_pointerUp");
+      this.isPointer = "up";
       /* store.commit('scrollY', { num: window.scrollY })
       this.startScrollPosition = window.scrollY */
     },
-    fn_pointerDown (event) {
-      console.log('fn_pointerDown')
-      this.isPointer = 'down'
+    fn_pointerDown(event) {
+      console.log("fn_pointerDown");
+      this.isPointer = "down";
       /* store.commit('scrollY', { num: window.scrollY })
       this.startScrollPosition = window.scrollY */
     },
-    fn_wheel (event) {
-      this.startScrollPosition = window.scrollY
+    fn_wheel(event) {
+      this.startScrollPosition = window.scrollY;
     },
-    fn_resize () {
-      store.commit('isMobile', { active: window.innerWidth < 750 })
-      store.commit('outHeight', { num: window.outerHeight })
+    fn_resize() {
+      store.commit("isMobile", { active: window.innerWidth < 750 });
+      store.commit("outHeight", { num: window.outerHeight });
       /* if (window.innerWidth < 1125) {
         store.commit('inHeight', { num: window.innerHeight })
       } else {
         store.commit('inHeight', { num: '100%' })
       } */
     },
-    fn_back: function () {
-      router.go(-1)
+    fn_back: function() {
+      router.go(-1);
     },
-    fn_menu: function () {
+    fn_menu: function() {
       if (this.$store.state.isMenu) {
-        this.isMenu = false
+        this.isMenu = false;
       } else {
-        this.isMenu = true
+        this.isMenu = true;
       }
-      store.commit('isMenu', { active: this.isMenu })
+      store.commit("isMenu", { active: this.isMenu });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

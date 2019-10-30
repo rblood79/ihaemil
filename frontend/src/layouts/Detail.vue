@@ -14,18 +14,18 @@
 </template>
 
 <script>
-import store from '../store'
+import store from "../store";
 export default {
   props: {},
-  data () {
+  data() {
     return {
-      swiperOption: {
-        direction: 'vertical',
-        slidesPerView: 'auto',
+      /*swiperOption: {
+        direction: "vertical",
+        slidesPerView: "auto",
         freeMode: true,
         mousewheel: true,
         scrollbar: {
-          el: '.swiper-scrollbar',
+          el: ".swiper-scrollbar",
           draggable: true,
           hide: true
         },
@@ -33,12 +33,14 @@ export default {
           enabled: true,
           onlyInViewport: false
         }
-      }
-    }
+      }*/
+    };
   },
-  created () {},
-  mounted () {}
-}
+  created() {
+    //console.log('created')
+  },
+  mounted() {}
+};
 </script>
 <style lang="scss">
 .application.detail {

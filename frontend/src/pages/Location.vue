@@ -34,6 +34,7 @@ export default {
         },
         { title: '일반전화 : ', contents: '055 761 1070' },
         { title: '대표전화 : ', contents: '010 6570 2070' },
+        { title: '이메일 : ', contents: 'paeksc509@Hotmail.com' },
         { title: '팩스 : ', contents: '055 752 3070' },
         { title: '사업자등록번호 : ', contents: '613 81 73711' }
       ],
