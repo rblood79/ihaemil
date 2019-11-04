@@ -53,6 +53,7 @@
   </v-container>
 </template>
 <script>
+
 import config from '../config'
 export default {
   created () {
