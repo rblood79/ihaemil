@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import store from "../store";
+import store from '../store'
 export default {
   props: {},
-  data() {
+  data () {
     return {
-      /*swiperOption: {
+      /* swiperOption: {
         direction: "vertical",
         slidesPerView: "auto",
         freeMode: true,
@@ -33,14 +33,14 @@ export default {
           enabled: true,
           onlyInViewport: false
         }
-      }*/
-    };
+      } */
+    }
   },
-  created() {
-    //console.log('created')
+  created () {
+    // console.log('created')
   },
-  mounted() {}
-};
+  mounted () {}
+}
 </script>
 <style lang="scss">
 .application.detail {

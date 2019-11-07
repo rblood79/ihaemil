@@ -50,7 +50,7 @@
                   v-bind:style="{ backgroundColor: item.background}"
                   contain
                 ></v-img>
-                <p class="article" v-text="item.article" v-if="item.article"></p>
+                <p class="article" v-html="item.article" v-if="item.article"></p>
               </v-card>
             </v-flex>
           </v-layout>
@@ -72,78 +72,87 @@ export default {
     src: String,
     path: String
   }, */
-  data() {
+  data () {
     return {
       items: [
         {
           idx: 0,
           flex: [12, 12],
-          title: "RUNA report",
+          title: 'RUNA report',
           titleSub:
-            "최적의 사용자 편의성을 지원하는 레포트 개발환경(Form Editor)",
+            '최적의 사용자 편의성을 지원하는 레포트 개발환경(Form Editor)',
           article: [
             {
               idx: 1,
-              title: "어디에서나 한결같이", // 'Cross Flatform',
+              title: '어디에서나 한결같이', // 'Cross Flatform',
               article:
-                "HTML5를 지원하는 브라우저(IE, Opera, Firefox, Chrome, Safari 등)에서 동일한 서비스가 가능합니다.",
-              background: "#fff",
-              src: require("../assets/images/browser.png"),
-              height: "240",
+                'HTML5를 지원하는 브라우저(IE, Opera, Firefox, Chrome, Safari 등)에서 동일한 서비스가 가능합니다.',
+              background: '#fff',
+              src: require('../assets/images/browser.png'),
+              height: '240',
+              flex: [12, 12]
+            },{
+              idx: 2,
+              title: 'GS인증', // 'Cross Flatform',
+              article:
+                'RUNA report는 (ktl)한국산업 기술 시험장 에서 인증하는 소프트웨어 품질인증의 최고등급을 획득하였습니다.<br/>인증번호: 19-0022',
+              background: '#fff',
+              src: require('../assets/images/gs.jpg'),
+              height: '240',
               flex: [12, 12]
             },
             {
               idx: 3,
-              title: "누구나 쉽게", // 'Easy Builder',
+              title: '누구나 쉽게', // 'Easy Builder',
               article:
-                "Excel 형태의 레이아웃 구성으로 익숙한 환경에서 보다쉽게 적응하며 누구나 편리하게 제작이 가능합니다.",
-              src: require("../assets/images/jordan-sanchez-Vbzx-yy5FoA-unsplash.jpg"),
-              height: "auto",
+                'Excel 형태의 레이아웃 구성으로 익숙한 환경에서 보다쉽게 적응하며 누구나 편리하게 제작이 가능합니다.',
+              src: require('../assets/images/jordan-sanchez-Vbzx-yy5FoA-unsplash.jpg'),
+              height: 'auto',
               flex: [6, 6]
             },
             {
               idx: 2,
-              title: "내 마음대로", // 'Customizable',
+              title: '내 마음대로', // 'Customizable',
               article:
-                "차트형태 변경이나 뷰어의 페이징 방법 및 라벨프린터 사용 시 인쇄용지에 맞게 라벨 갯수 변경이 가능하여 유동적으로 보여줄 수 있습니다.",
-              src: require("../assets/images/campaign-creators-pypeCEaJeZY-unsplash.jpg"),
-              height: "auto",
+                '차트형태 변경이나 뷰어의 페이징 방법 및 라벨프린터 사용 시 인쇄용지에 맞게 라벨 갯수 변경이 가능하여 유동적으로 보여줄 수 있습니다.',
+              src: require('../assets/images/campaign-creators-pypeCEaJeZY-unsplash.jpg'),
+              height: 'auto',
               flex: [6, 6]
             },
             {
               idx: 6,
-              title: "좀 더 다양하게", // 'App Component',
+              title: '좀 더 다양하게', // 'App Component',
               article:
-                "다양한 종류의 컴퍼넌트(테이블, 차트, 바코드, QR CODE, 라벨 등)을 지원하며 새로운 새로운 컨텐츠를 추가 및 편집할 수 있습니다.",
-              src: require("../assets/images/harpal-singh-_zKxPsGOGKg-unsplash.jpg"),
-              height: "auto",
+                '다양한 종류의 컴퍼넌트(테이블, 차트, 바코드, QR CODE, 라벨 등)을 지원하며 새로운 새로운 컨텐츠를 추가 및 편집할 수 있습니다.',
+              src: require('../assets/images/harpal-singh-_zKxPsGOGKg-unsplash.jpg'),
+              height: 'auto',
               flex: [12, 6]
             },
             {
               idx: 5,
-              title: "한번에 하자", // 'Multi Page',
+              title: '한번에 하자', // 'Multi Page',
               article:
-                "Powerpoint의 페이지 기능처럼 여러 페이지에 각각의 데이터와 화면 구성으로 한번에 다양한 페이지의 보고서를 제작할 수 있습니다.",
-              src: require("../assets/images/water-journal--EvvsegVoUE-unsplash.jpg"),
-              height: "auto",
+                'Powerpoint의 페이지 기능처럼 여러 페이지에 각각의 데이터와 화면 구성으로 한번에 다양한 페이지의 보고서를 제작할 수 있습니다.',
+              src: require('../assets/images/water-journal--EvvsegVoUE-unsplash.jpg'),
+              height: 'auto',
               flex: [12, 6]
             },
             {
               idx: 4,
-              title: "설치 프로그램은 그만", // 'Cloud Service',
+              title: '설치 프로그램은 그만', // 'Cloud Service',
               article:
-                "제작 프로그램을 설치할 필요없이 다양한 웹브라우저에서 서비스가 가능하여 쉽고 편리하게 이용할 수 있습니다.",
-              src: require("../assets/images/alina-grubnyak-hdpDLIXZg7Y-unsplash.jpg"),
+                '제작 프로그램을 설치할 필요없이 다양한 웹브라우저에서 서비스가 가능하여 쉽고 편리하게 이용할 수 있습니다.',
+              src: require('../assets/images/alina-grubnyak-hdpDLIXZg7Y-unsplash.jpg'),
               // height: "auto",
               flex: [6, 6]
             },
             {
               idx: 7,
-              title: "동적으로", // 'Dataset Connect',
+              title: '동적으로', // 'Dataset Connect',
               article:
-                "보고서에 여러개의 데이터셋을 사용가능하며 DB에서 가져온 데이터 및 Excel 파일 업로드를 통해 가공없이 사용할 수 있습니다.",
-              src: require("../assets/images/jeremy-thomas-rMmibFe4czY-unsplash.jpg"),
-              height: "auto",
+                '보고서에 여러개의 데이터셋을 사용가능하며 DB에서 가져온 데이터 및 Excel 파일 업로드를 통해 가공없이 사용할 수 있습니다.',
+              src: require('../assets/images/jeremy-thomas-rMmibFe4czY-unsplash.jpg'),
+              height: 'auto',
               flex: [6, 6]
             }
             /* {
@@ -157,60 +166,60 @@ export default {
               flex: [12, 6]
             } */
           ],
-          background: "#0277bd",
+          background: '#0277bd',
           // src: require('../assets/images/olav-ahrens-rotne-1102458-unsplash.jpg'),
-          src: require("../assets/images/package_atto.png"),
-          height: "calc(100vh - 188px)"
+          src: require('../assets/images/package_atto.png'),
+          height: 'calc(100vh - 188px)'
         },
         {
           idx: 1,
           flex: [12, 12],
-          title: "RUNA Home Builder",
-          titleSub: "dynamic web site build tool",
+          title: 'RUNA Home Builder',
+          titleSub: 'dynamic web site build tool',
           article: [
             {
               idx: 7,
-              title: "5분내에 홈페이지를 만들어보자",
+              title: '5분내에 홈페이지를 만들어보자',
               article:
-                "클라우드서버 기반의 설치 없이 웹에서 쉽게 사용 할수있는툴 - 준비중",
-              src: "", // require("../assets/images/ciprian-boiciuc-193062-unsplash.jpg"),
-              height: "auto",
+                '클라우드서버 기반의 설치 없이 웹에서 쉽게 사용 할수있는툴 - 준비중',
+              src: '', // require("../assets/images/ciprian-boiciuc-193062-unsplash.jpg"),
+              height: 'auto',
               flex: [12, 12]
             }
           ],
-          background: "#27d1a6",
-          src: require("../assets/images/package_c-builder.png"),
-          height: "calc(100vh - 188px)"
+          background: '#27d1a6',
+          src: require('../assets/images/package_c-builder.png'),
+          height: 'calc(100vh - 188px)'
         },
         {
           idx: 3,
           flex: [12, 12],
-          title: "RUNA UI/UX Studio",
-          titleSub: "experience developer tool",
+          title: 'RUNA UI/UX Studio',
+          titleSub: 'experience developer tool',
           article: [
             {
               idx: 7,
-              title: "멀티 플랫폼 제작 도구",
+              title: '멀티 플랫폼 제작 도구',
               article:
-                "HTML5 + CSS3 + JAVASCRIPT + DB 기반의 E-Business Solution",
-              src: "", // require("../assets/images/ciprian-boiciuc-193062-unsplash.jpg"),
-              height: "auto",
+                'HTML5 + CSS3 + JAVASCRIPT + DB 기반의 E-Business Solution',
+              src: '', // require("../assets/images/ciprian-boiciuc-193062-unsplash.jpg"),
+              height: 'auto',
               flex: [12, 12]
             }
           ],
-          background: "#673ab7",
-          src: require("../assets/images/package_n-studio.png"),
-          height: "calc(100vh - 188px)"
+          background: '#673ab7',
+          src: require('../assets/images/package_n-studio.png'),
+          height: 'calc(100vh - 188px)'
         }
       ]
-    };
+    }
   },
-  created() {},
-  mounted() {
-    
+  created () {},
+  mounted () {
+
   },
   methods: {}
-};
+}
 </script>
 <style lang="scss" scoped>
 
