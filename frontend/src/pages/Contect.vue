@@ -57,7 +57,7 @@
 import config from '../config'
 export default {
   created () {
-    const baseURI = 'http://localhost:3000/api/contact'
+    const baseURI = 'http://localhost:80/api/contact'
     /* this.$http.get(`${baseURI}/contact`).then(result => {
       this.itemList = result.data;
     }); */
